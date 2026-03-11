@@ -4,92 +4,159 @@
     Review Dasar Pemrograman
 */
 
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-    typedef struct anggota {
+    typedef struct anggota{
         string nama, asal_kota, tipe_kartu;
-        int tahun_masuk, masa_keanggotaaan;
-    }komunitas;
+        int tahun_masuk, masa_keanggotaan;
+    }komunitas; //membuat ADT sekalian alias (typedef)
+
+    // typedef struct anggota komunitas;//mengaliaskan
+    // Fungsi : mengembalikan value, ada return
+    // prosedur : tidak mengembalikan value, untuk mencetak/proses yang banyak
+
+// Prosedur
+void input(komunitas sepeda[], int n);
+void cetak(komunitas sepeda[], int n);
+string anggotaTerlama(komunitas sepeda[], int n);  // mengembalikan nama anggota
+int masaTerlama(komunitas sepeda[], int n); // mengembalikan masa terlama
+bool cari(komunitas sepeda[], int n, string cariNama);   // mengembalikan cari
 
 int main()
 {
     string nama1, nama2, nama3, asal_kota1, asal_kota2, tipe_kartu;
-    int tahun_masuk, masa_keanggotaaan;
-    string namaAnggota[100], asal_kota[100];
+    int tahun_masuk, masa_keanggotaan;
+    string nama_anggota[100], asal_kota_anggota[100];
 
-    int i, n;
-    komunitas sepeda[100];
+    // struct anggota sepeda; // struct anggota adalah tipe data, sepeda adalah variabel
+    komunitas sepeda[100];  // komunitas adalah variabel
     sepeda[0].nama = "Alex";
     sepeda[0].tahun_masuk = 2000;
+    int i, n;
     
-
-    // Input
     cout << "Berapa penyewa yang akan diinput? "; cin >> n;
-    for(i=0; i<n; i++){
-        cout << "Penyewa ke-" << i+1 << endl;      // saat print i+1 namun i tetap, misal print 1 namun i=0
-        cout << "Masukan nama = "; cin >> sepeda[i].nama;
-        cout << "Tahun masuk = "; cin >> sepeda[i].tahun_masuk;
-        cout << "Asal kota = "; cin >> sepeda[i].asal_kota;
+    // input
+    input(sepeda, n);
+    // Output
+    cetak(sepeda, n);
 
-        sepeda[i].masa_keanggotaaan = 2026 - sepeda[i].tahun_masuk;
-        if(sepeda[i].masa_keanggotaaan == 2)
-            sepeda[i].tipe_kartu = "Silver";
-        else if(sepeda[i].masa_keanggotaaan >=3 && sepeda[i].masa_keanggotaaan <=5)
-            sepeda[i].tipe_kartu = "Gold";
-        else if(sepeda[i].masa_keanggotaaan > 5)
-            sepeda[i].tipe_kartu = "Platinum";
-        else
-            sepeda[i].tipe_kartu = "-";
-    }
+    cout << "Masa keanggotaan terlama adalah "
+         << anggotaTerlama(sepeda, n) 
+         << " sudah " << masaTerlama(sepeda, n) << " tahun\n";
 
-    // OUTPUT
-    cout << "|==================================================================|\n";
-    cout << "| Nama \t | Tahun Masuk | Asal kota | Masa keanggotaan | Tipe kartu | \n";
-    cout << "|==================================================================|\n";
-    for(i=0; i<n; i++) {
-        cout << "| " << sepeda[i].nama << "\t| " 
-             << sepeda[i].tahun_masuk << " \t\t| " 
-             << sepeda[i].asal_kota << " \t| " 
-             << sepeda[i].masa_keanggotaaan << " tahun \t| " 
-             << sepeda[i].tipe_kartu  << " \t|\n";     
-    }
-    cout << "|==================================================================|\n";
-    // MAX MASA KEANGGOTAAN
-    int maxMasa = 0, indexMaxMasa;
-    for(i=0; i<n; i++) {
-        if(sepeda[i].masa_keanggotaaan > maxMasa){
-            maxMasa = sepeda[i].masa_keanggotaaan;
-            indexMaxMasa = i;
-        }
-    }
-
-    cout << "Masa keanggotaan terlama adalah " << sepeda[indexMaxMasa].nama << " sudah " << maxMasa << " tahun\n ";
-
-    // CARI NAMA    
+         
+    // Search By Name
     string cariNama;
     bool ketemu = false;
 
     cout << "Pencarian berdasarkan nama: "; cin >> cariNama;
-    for(i=0; i<n; i++) {
-        if(sepeda[i].nama == cariNama) {
-            ketemu = true;
-            // copy dari ouput
-            cout << "|==================================================================|\n";
-            cout << "| Nama \t | Tahun Masuk | Asal kota | Masa keanggotaan | Tipe kartu | \n";
-            cout << "|==================================================================|\n";
-            cout << "| " << sepeda[i].nama << "\t| " 
-                 << sepeda[i].tahun_masuk << " \t\t| " 
-                 << sepeda[i].asal_kota << " | " 
-                 << sepeda[i].masa_keanggotaaan << " \t\t| " 
-                 << sepeda[i].tipe_kartu  << " |\n"; 
 
-              cout << "|==================================================================|\n";
-              break;
-            }
-        }
-        if(!ketemu) {
-            cout << "Data tidak ditemukan.\n";
-        }
+    cari(sepeda, n, cariNama);
+    
+    if(!cari(sepeda, n, cariNama)) //false
+        cout << "Data tidak ditemukan.\n";
+
     return 0;
+}
+
+
+
+// BAWAH INT MAIN
+
+/*
+    Nama : Ricy Rifani Putra
+    NIM : A11.2025.16464
+    Selasa 10 Maret 2026
+*/
+
+bool cari(komunitas sepeda[], int n, string cariNama) {
+    string cariNama;
+    bool ketemu;
+
+    for(int i=0; i<n; i++){
+        if(sepeda[i].nama == cariNama){
+            ketemu = true;
+
+            //Copy From Output
+            cout << "|====================================================================|\n";
+            cout << "| Nama \t| Tahun Masuk | Asal Kota \t| Keanggotaan \t| Tipe Kartu \t |\n";
+            cout << "|====================================================================|\n";
+
+            cout << "| " << sepeda[i].nama << "\t| "
+                 << sepeda[i].tahun_masuk << "\t| "
+                 << sepeda[i].asal_kota << "\t| "
+                 << sepeda[i].masa_keanggotaan << " tahun\t| "
+                 << sepeda[i].tipe_kartu << "\t|\n";
+
+            cout << "|====================================================================|\n";
+
+            break; // emergency exit
+        }
+    }
+}
+
+void input(komunitas sepeda[], int n) {
+    // Input
+    for(int i=0; i<n; i++){ // tambahan (int)
+        cout << "Penyewa ke-" << i+1 << endl;
+        cout << "Masukkan nama = ";
+        cin >> sepeda[i].nama;
+        cout << "Tahun masuk   = ";
+        cin >> sepeda[i].tahun_masuk;
+        cout << "Asal kota     = ";
+        cin >> sepeda[i].asal_kota;
+
+        sepeda[i].masa_keanggotaan = 2026 - sepeda[i].tahun_masuk;
+        if(sepeda[i].masa_keanggotaan == 2)
+            sepeda[i].tipe_kartu = "Silver";    //aksi hanya 1, maka boleh tanpa {}
+        else if(sepeda[i].masa_keanggotaan >=3 && sepeda[i].masa_keanggotaan <=5)
+            sepeda[i].tipe_kartu = "Gold";
+        else if(sepeda[i].masa_keanggotaan > 5)
+            sepeda[i].tipe_kartu = "Platinum";
+        else
+            sepeda[i].tipe_kartu = "-";
+    }
+}
+
+void cetak(komunitas sepeda[], int n) {
+    // Output
+    cout << "|====================================================================|\n";
+    cout << "| Nama \t| Tahun Masuk \t| Asal Kota \t| Masa Keanggotaan | Tipe Kartu |\n";
+    cout << "|====================================================================|\n";
+
+    for(int i=0; i<n; i++){ // tambahan (int)
+        cout << "| " << sepeda[i].nama << "\t| "
+             << sepeda[i].tahun_masuk << "\t\t| "
+             << sepeda[i].asal_kota << "\t| "
+             << sepeda[i].masa_keanggotaan << "\t\t| "
+             << sepeda[i].tipe_kartu << "\t|\n"; //1 line
+    }
+    cout << "|====================================================================|\n";
+}
+
+string anggotaTerlama(komunitas sepeda[], int n)  // mengembalikan nama anggota
+{
+    
+    // Max Masa Keanggotaan
+    int masaMax = 0, indexMasaMax;
+    for(int i=0; i<n; i++){
+        if(sepeda[i].masa_keanggotaan > masaMax){
+            masaMax = sepeda[i].masa_keanggotaan;
+            indexMasaMax = i;
+        }
+    }
+    return sepeda[indexMasaMax].nama;
+}
+
+int masaTerlama(komunitas sepeda[], int n) // mengembalikan masa terlama
+{
+        int masaMax = 0, indexMasaMax;
+    for(int i=0; i<n; i++){
+        if(sepeda[i].masa_keanggotaan > masaMax){
+            masaMax = sepeda[i].masa_keanggotaan;
+            indexMasaMax = i;
+        }
+    }
+    return masaMax;
 }
