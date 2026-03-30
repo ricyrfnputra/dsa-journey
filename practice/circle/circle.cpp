@@ -53,7 +53,7 @@ float Circle::keliling(){
 void Circle::setJariJari(float jari_jari){
     this->jari_jari = jari_jari;
 }
-
+gp
 float Circle::getJariJari(){
     return jari_jari;
 }
