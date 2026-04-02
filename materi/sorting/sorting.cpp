@@ -14,7 +14,7 @@ void selectionSort(int arr[], int n);
 
 int main()
 {   
-    int a=2, b=7, temp;
+    int a=2, b=7, temp;            
     cout << "Sebelum swap \na = " << a << "\tb = " << b << endl;
     temp = a;
     a = b;
