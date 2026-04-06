@@ -14,13 +14,12 @@ int main() {
     cout << "Sebelum Bubble Sort:\n";
     printArray(arrB, sb);
     bubbleSort(arrB, sb);
-    cout << "\nSetelah Bubble Sort:\n";
+    cout << "Setelah Bubble Sort:\n";
     printArray(arrB, sb);
 
     // Selection Sort 
     int arrS[] = {29, 9, 20, 5, 64};
     int ss = sizeof(arrS) / sizeof(arrS[0]);
-    cout << "\nss = " << sizeof(arrS) << " / " << sizeof(arrS[0]) << " = " << ss << endl;
     cout << "\nSebelum Selection Sort\n";
     printArray(arrS, ss);
     selectionSort(arrS, ss);
@@ -68,6 +67,8 @@ void selectionSort(int arr[], int n){
         temp = arr[min_idx];
         arr[min_idx] = arr[i];
         arr[i] = temp;
+
+        printArray(arr, n);
     }
 }
 
