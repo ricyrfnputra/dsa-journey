@@ -5,7 +5,9 @@ void printArray(int arr[], int n);
 void bubbleSort(int arr[], int n);
 void selectionSort(int arr[], int n);
 void insertionSort(int arr[], int n);
-
+bool linearSearch(int arr[], int n, int k);
+bool linearSearchSentinel(int arr[], int n, int k);
+bool binarySearch(int ar[], int n, int k);
 
 int main() {
     // Bubble Sort
@@ -36,8 +38,61 @@ int main() {
     cout << "Setelah Insertion Sort\n";
     printArray(arrI, n);
 
+    // Binary search
+    cout << "\n==========================";
+    int arr[] = {29, 9, 20, 5, 64};
+    int sa = sizeof(arr) / sizeof(arr[0]);
+    cout << "\n\nSebelum Insertion Sort\n";
+    printArray(arr, sa);
+    cout << "Apakah angka 9 ada  di array arr? " << linearSearch(arr, sa, 9) << endl;
+    cout << "Apakah angka 9 ada  di array arr? " << linearSearchSentinel(arr, sa, 9) << endl;
+    cout << "Apakah angka 52 ada  di array arr? " << linearSearchSentinel(arr, sa, 52) << endl;
+    cout << "\nSetelah Insertion Sort\n";
+    insertionSort(arr, sa); 
+    printArray(arr, sa);
+    cout << "Apakah angka 88 ada di array arrS? " << binarySearch(arr, sa, 5) << endl;
 
     return 0;
+}
+
+// Binary
+bool binarySearch(int arr[], int n, int k){
+    // Array Urut
+    bool found = false;
+    int left = 0, right=n-1, mid;
+    while(left <= right && !found){
+        mid = (left+right)/2;
+        if(arr[mid] == k)
+            found = true;
+        else if(arr[mid] > k)
+            right = mid-1;
+        else 
+            left = mid+1;
+    }
+    return found;
+}
+
+
+bool linearSearchSentinel(int arr[], int n, int k){
+    bool found = false; // array acak
+    arr[n] = k;
+    int i = 0;
+    while(arr[i] != k)
+        i++;    // aksi hanya 1, boleh tanpa()
+    if(i != n)  
+        found = true;
+    return found;
+}
+
+
+bool linearSearch(int arr[], int n, int k){
+    bool found = false; // array acak
+    for(int i=0; i<n; i++){
+        if(arr[i] == k){
+            found = true;
+            break;
+        }
+    }
 }
 
 void insertionSort(int arr[], int n){  
