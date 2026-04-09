@@ -21,6 +21,7 @@ using namespace std;
         void setIpk(float iipk);
         // karena atribut bersifat private, maka perlu prosedur setter untuk mengisi nilai pada atribut
     };
+
     void sortingIpkDesc(Mhs m[], int n);
     void cetakSemuaMhs(Mhs m[], int n);
     bool searchNim(string k, int n, Mhs m[]);
@@ -93,6 +94,27 @@ float cariIpkDariNama(string k, int n, Mhs m[]) {
     }
     return ipk_dicari;
 }
+void analisaMhs(Mhs m[], int n) {
+    float nMax = 0, nMin = 100, jml = 0, nRata;
+    int iMax, iMin;
+    for(int i=0; i<n; i++){
+        jml += m[i].getIpk();   // jml = jml + m[i].getIpk();
+        if(m[i].getIpk() > nMax){
+            nMax = m[i].getIpk();
+            iMax = i;
+        }
+        if(m[i].getIpk() < nMin){
+            nMin = m[i].getIpk();
+            iMin = i;
+        }
+    }
+    cout << "Analisa berdasarkan nilai IPK\n";
+    cout << "IPK tertinggi = " << nMax << " diperoleh mahasiswa " << m[iMax].getNama() << endl;
+    cout << "IPK terendah = " << nMin << " diperoleh mahasiswa " << m[iMin].getNama() << endl;
+    nRata = jml/n;
+    cout << "IPK rata-rata = " << nRata << endl; 
+}
+
 int main()
 {
     Mhs mm[40];
@@ -142,10 +164,10 @@ int main()
             cin >> nama_mhs; // buat variabel
             cout << "IPK" << nama_mhs << " = " << cariIpkDariNama(nama_mhs, jml_mhs, mm) << endl;
         }else if(pil==4) {
-
+            analisaMhs(mm, jml_mhs);
         }else{
             cout << "Inputan Anda salah\n";
-        }!
+        }
 
         cout << "Apakah ingin melanjutkan (y/n)? "; cin >> lanjut;
     }while(lanjut=='y');
