@@ -1,11 +1,11 @@
-#ifndef HEADER_H_INCLUDED
-#define HEADER_H_INCLUDED
+#ifndef HEADER_H
+#define HEADER_H
 
 // start header.h
 #include<iostream>
 using namespace std;
 
-class Mhs{
+    class Mhs{
         private:    // atribute
         string nim, nama;
         float ipk;
@@ -19,8 +19,11 @@ class Mhs{
         void setIpk(float iipk);
         // karena atribut bersifat private, maka perlu prosedur setter untuk mengisi nilai pada atribut
     };
+
     void sortingIpkDesc(Mhs m[], int n);
     void cetakSemuaMhs(Mhs m[], int n);
     bool searchNim(string k, int n, Mhs m[]);
     float cariIpkDariNama(string k, int n, Mhs m[]);
     void analisaMhs(Mhs m[], int n);
+
+#endif
