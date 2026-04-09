@@ -38,9 +38,10 @@ void sortingIpkDesc(Mhs m[], int n){
     }
 }
 void cetakSemuaMhs(Mhs m[], int n){
-    cout << "Urutan terbaru\n| No | NIM \t\t | Nama \t\t\t | IPK \t|\n";
+    cout << endl;
+    cout << "Urutan terbaru\n| No | NIM \t\t\t| Nama \t\t\t| IPK \t|\n";
     for(int i=0; i<n; i++){
-        cout << "| " << i+1 << " | " << m[i].getNim() << " \t\t| " << m[i].getNama() << " \t\t | " << m[i].getIpk() << " \t|\n";
+        cout << "| " << i+1 << "  | " << m[i].getNim() << " \t\t| " << m[i].getNama() << " \t\t\t| " << m[i].getIpk() << " \t|\n";
     }
 
 }
@@ -80,9 +81,10 @@ void analisaMhs(Mhs m[], int n) {
             iMin = i;
         }
     }
-    cout << "Analisa berdasarkan nilai IPK\n";
+    cout << endl;
+    cout << "Analisa berdasarkan nilai IPK\n\n";
     cout << "IPK tertinggi = " << nMax << " diperoleh mahasiswa " << m[iMax].getNama() << endl;
-    cout << "IPK terendah = " << nMin << " diperoleh mahasiswa " << m[iMin].getNama() << endl;
+    cout << "IPK terendah = " << nMin << " diperoleh mahasiswa " << m[iMin].getNama() << endl << endl;
     nRata = jml/n;
     cout << "IPK rata-rata = " << nRata << endl; 
 }
