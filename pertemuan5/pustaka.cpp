@@ -1,3 +1,8 @@
+/*
+    Nim     : A11.2025.16464
+    Nama    : Ricy Rifani Putra
+    Materi  : Sorting Searching Array Object 
+*/
 #include "header.h"
 
 // start pustaka.cpp

@@ -1,3 +1,9 @@
+/*
+    Nim     : A11.2025.16464
+    Nama    : Ricy Rifani Putra
+    Materi  : Sorting Searching Array Object 
+*/
+
 #ifndef HEADER_H
 #define HEADER_H
 

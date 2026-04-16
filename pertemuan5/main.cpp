@@ -20,7 +20,7 @@ int main()
     cout << endl;
 
         cout << "Data awal Mahasiswa\n| No | NIM \t\t\t| Nama \t\t\t| IPK \t|\n";
-    for(int i=0; i<jml_mhs; i++){
+    for(int i=0; i<jml_mhs; i++)
         cout << "| " << i+1 << "  | " << mm[i].getNim() << " \t\t| " << mm[i].getNama() << " \t\t\t| " << mm[i].getIpk() << " \t|\n";
     }
     cout << endl;
@@ -33,7 +33,7 @@ int main()
 
     int pil, urutan; // pil 1
     char lanjut;
-    float ipk_baru;  // pil 1
+    float ipk_baru;  // pil 
     string cari_nim, hasil_cari_nim;    // pill 2
     string nama_mhs; // pil 3
 
@@ -45,6 +45,10 @@ int main()
             urutan--; // urutan = urutan - 1;
             cout << "Masukan IPK baru antara 0 sampai 4 = "; cin >> ipk_baru; // buat tipe data 
             mm[urutan].setIpk(ipk_baru);
+
+            
+            sortingIpkDesc(mm, jml_mhs);    
+            
             cetakSemuaMhs(mm, jml_mhs);
         }else if(pil==2) {
             cout << "Masukan NIM mahasiswa yang ingin dicari = ";
@@ -73,6 +77,6 @@ int main()
     
     return 0;
 
-} 
+}
 
 
