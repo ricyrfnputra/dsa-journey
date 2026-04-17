@@ -28,8 +28,8 @@ public:
     void insertdepan(int value);
     void insertbelakang(int value);
     void cetak();
-    void hapusdepan();
-    void hapusbelakang();
+    void hapusDepan();
+    void hapusBelakang();
     bool searchdata(int k);
     bool searchdata2(int k);
     int hitungNode();
@@ -62,7 +62,7 @@ int main() {
 }
 
 
-void LinkedList::hapusdepan(){
+void LinkedList::hapusDepan(){
     if(head != nullptr){
         Node *temp = head;
 
@@ -73,15 +73,23 @@ void LinkedList::hapusdepan(){
 
 void LinkedList::hapusBelakang(){
     if(head != nullptr){
-        Node *current = head;
-        Node *previous = head;
+        if(head == tail){
+            Node *temp = head;
+            head = nullptr;
+            tail = nullptr;
+            delete temp;
+        } else {
+            Node *current = head;
+            Node *previous = head;
 
-        while(current->next != nullptr) {   // meletakan current di tail
-            previous = current;             // previous sebelum tail
-            current = current->next;
+            while(current->next != nullptr) {
+                previous = current;
+                current = current->next;
+            }
+            previous->next = nullptr;
+            tail = previous;  
+            delete current;
         }
-        previous->next = nullptr;
-        delete current;
     }
     cetak();
 }
@@ -124,11 +132,11 @@ int LinkedList::hitungNode(){
 void LinkedList::cetak() {
     Node *temp = head;
     while (temp != nullptr) {
-        cout << "["  << temp->data << " | " >> temp->next << "]";
+        cout << "["  << temp->data << " | " << temp->next << "]";
         if(temp->next != nullptr){
-            cout << "->";
-            temp = temp->next;
+            cout << "->";   
         }
+        temp = temp->next;
     }
     cout << endl;
 }
