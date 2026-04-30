@@ -2,7 +2,6 @@
     Name    : Ricy Rifani Putra
     Nim     : A11.2025.16464
     Matery  : Single LinkedList
-    
 */
 
 #include <iostream>
@@ -32,20 +31,21 @@ public:
     void insertDepan(int value) {
         Node* newNode = new Node(value);
         newNode->next = head;
-        head = newNode;sni
+        head = newNode;       // ← hapus "sni" di sini
     }
 
-    // LIST
+    // CETAK LIST
     void cetak() {
         Node* temp = head;
         while (temp) {
-            cout << "[" << temp->data << "|" << temp->next << "] --> ";
+            string nextVal = temp->next ? to_string(temp->next->data) : "NULL";
+            cout << "[" << temp->data << "|" << nextVal << "] --> ";
             temp = temp->next;
         }
-        cout << endl;
+        cout << "NULL" << endl;
     }
 
-    // HITUNG
+    // HITUNG NODE
     int hitungNode() {
         int s = 0;
         Node* temp = head;
@@ -56,8 +56,7 @@ public:
         return s;
     }
 
-
-    
+    // HAPUS TENGAH
     void hapusMid(int n) {
         if (!head || n < 2) return;
 
@@ -74,8 +73,7 @@ public:
         delete temp;
     }
 
-
-    // 
+    // INSERT AFTER
     void insertAfter(int nodeVal, int value) {
         Node* temp = head;
         while (temp && temp->data != nodeVal)
@@ -88,7 +86,7 @@ public:
         }
     }
 
-    // 
+    // INSERT BEFORE
     void insertBefore(int nodeVal, int value) {
         if (!head) return;
 
@@ -118,7 +116,6 @@ public:
 int main() {
     LinkedList sll;
 
-    // Insert Depan 
     sll.insertDepan(14);
     sll.insertDepan(1);
     sll.insertDepan(84);
@@ -127,32 +124,26 @@ int main() {
     cout << "Linked list awal:\n";
     sll.cetak();
 
-    // Hapus Node Tengah (84)
     cout << "\nsll.hapusMid-1\n";
     sll.hapusMid(sll.hitungNode());
     sll.cetak();
 
-    // Hapus Node Tengah (1)
     cout << "\nsll.hapusMid-2\n";
     sll.hapusMid(sll.hitungNode());
     sll.cetak();
 
-    // Menyisipkan 17 setelah Node 100
     cout << "\nsll.insertAfter(100, 17)\n";
     sll.insertAfter(100, 17);
     sll.cetak();
 
-    // Menyisipkan 17 setelah Node 14
     cout << "\nsll.insertAfter(14, 17)\n";
     sll.insertAfter(14, 17);
     sll.cetak();
 
-    // Menyisipkan 42 sebelum node 14
     cout << "\nsll.insertBefore(14, 42)\n";
     sll.insertBefore(14, 42);
     sll.cetak();
 
-    // Menysipkan 42 sebelum node 100
     cout << "\nsll.insertBefore(100, 42)\n";
     sll.insertBefore(100, 42);
     sll.cetak();
