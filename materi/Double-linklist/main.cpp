@@ -1,3 +1,5 @@
+// NIM  : A11.2025.16464
+// NAME : RICY RIFANI PUTRA
 #include <iostream>
 using namespace std;
 
@@ -87,7 +89,7 @@ int main () {
     cout << "\nsetelah tukar head\n";
     dll.tukarHead(2, dll.hitungNode());
     cout << "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ";
-    cout << "\ndll.hapusDuplikat()\n";
+    cout << "\nhapus duplikat\n";
     dll.hapusDuplikat();
 
     return 0;
@@ -118,7 +120,7 @@ void DoubleLinkedList::tukarHead(int posisi, int n){
 
 void DoubleLinkedList::insertBefore(int value, int BValue){
     Node *temp = new Node(value);
-    Node *current = NULL;
+    Node *current = head;
     while(current != NULL && current->data != BValue){
         current = current->next;
     }
@@ -209,7 +211,7 @@ bool DoubleLinkedList::searchData2(int k) {
 void DoubleLinkedList::insertMid(int value, int n) {
 
     Node *temp = new Node(value);
-    int mid = n/2;
+    int mid = (n/2) - 1;
     Node *current = head;
     for (int i = 0; i < mid; i++) {
         current = current->next;
