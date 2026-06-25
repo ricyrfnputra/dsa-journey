@@ -1,6 +1,6 @@
 // Name     : Ricy Rifani Putra
 // Nim      : A11.2025.16464
-// Matery   : Tree 
+// Matery   : Tree
 #include<iostream>
 using namespace std;
 
@@ -26,53 +26,37 @@ class NodeAritmatika{
 
 class Tree{
     public:
-    Node *root;
-    
+    Node *root = NULL;
+    NodeAritmatika *rootArit = NULL;   // root khusus untuk pohon aritmatika
+
     Node *insertBinaryRoot(Node *root, int nilai);
     void preOrder(Node *root);
     void inOrder(Node *root);
     void postOrder(Node *root);
     int heightNode(Node *root);
     void levelOrder(Node *root);
-    void PrintCurrentLevel(Node *root, int level);  
+    void PrintCurrentLevel(Node *root, int level);
     void inOrderAritmatika(NodeAritmatika *root);
     bool isPerfectBinaryArit(NodeAritmatika *root, int tinggi, int level);
-
 
     //
     void printTree(Node *root, string indent ="", bool last=true);
     int heightNodeAritmatika(NodeAritmatika *root);
-    void printTreeArit(NodeAritmatika *root, string indent, bool last); 
+    void printTreeArit(NodeAritmatika *root, string indent = "", bool last = true);
 };
 
 int main()
 {
-    // Tree insert manual
-    // Node *root = new Node(20);
-    // root->left = new Node(15);
-    // root->left->right = new Node(17);
-    // root->left->left = new Node(12);
-    // root->right = new Node(25);
-    // root->right->right = new Node(27);
-
     Tree pohon;
-    // cout << "Transversal pre order\n";
-    // pohon.preOrder(root);
-    // // 20-15-12-17-25-27
-    // cout << "\nTransversal in order\n";
-    // pohon.inOrder(root);
-    // // 12-15-17-20-25-27
-    // cout << "\nTransversal post order\n";
-    // pohon.postOrder(root);
-   
+
     Node *root = NULL;
     Tree T;
     root = NULL;
     root = T.insertBinaryRoot(root,15);
-    root = T.insertBinaryRoot(root,26); 
-    root = T.insertBinaryRoot(root,8); 
+    root = T.insertBinaryRoot(root,26);
+    root = T.insertBinaryRoot(root,8);
     root = T.insertBinaryRoot(root,12);
-    root = T.insertBinaryRoot(root,20); 
+    root = T.insertBinaryRoot(root,20);
     root = T.insertBinaryRoot(root,6);
     root = T.insertBinaryRoot(root,9);
     root = T.insertBinaryRoot(root,14);
@@ -80,14 +64,13 @@ int main()
     cout << "Transversal preOrder " << endl;
     T.preOrder(root);
 
-
-    cout << "\nPre Order: " << endl; 
+    cout << "\nPre Order: " << endl;
     T.preOrder(root);
-    cout << "\nIn Order: " << endl; 
+    cout << "\nIn Order: " << endl;
     T.inOrder(root);
-    cout << "\nPost Order: " << endl; 
+    cout << "\nPost Order: " << endl;
     T.postOrder(root);
-    
+
     int Tinggi;
     Tinggi = T.heightNode(root);
     cout << "\nTinggi Tree (mulai dari 1) : " << Tinggi << endl;
@@ -122,8 +105,7 @@ int main()
     witArit.inOrderAritmatika(akar2);
     cout << endl;
 
-
-    // TREE 1
+    // TREE 1 (angka)
     Tree t;
     t.root = new Node(20);
     t.root->left = new Node(15);
@@ -131,44 +113,24 @@ int main()
     t.root->left->left = new Node(12);
     t.root->left->right = new Node(17);
     t.root->right->right = new Node(27);
-    //t.displayTree(t.root);
     cout << "\n==============\n";
     t.printTree(t.root);
  
     Tree tA;
-    tA.root = new Node(+);
-    tA.root->left = new Node(*);
-    tA.root->right = new Node(9);
-    tA.root->left->left = new Node(6);
-    tA.root->left->right = new Node(-);
-    tA.root->right->right = new Node(8);
-    tA.root->right->right->right = new Node(27);
-    //t.displayTree(t.root);
+    tA.rootArit = new NodeAritmatika('+');
+    tA.rootArit->left = new NodeAritmatika('*');
+    tA.rootArit->right = new NodeAritmatika('9');
+    tA.rootArit->left->left = new NodeAritmatika('6');
+    tA.rootArit->left->right = new NodeAritmatika('-');
+    tA.rootArit->left->right->left = new NodeAritmatika('8');
+    tA.rootArit->left->right->right = new NodeAritmatika('2');
     cout << "\n==============\n";
-    tA.printTree(tA.root);
+    tA.printTreeArit(tA.rootArit);
 
     return 0;
-}   
+}
 
-void printTreeArit(Noderitmatika *root, string indent, bool last){
-    if(root != NULL){
-        cout << indent;
-        if(last){
-            cout << "R----";
-            indent += "     ";
-        }
-        else{
-            cout << "L----";
-            indent += "     ";
-        }
-        cout << root->data << endl;
-        
-        indent += "     ";
-        printTree(root->left, indent, false);
-        printTree(root->right, indent, true);
-    }
-} 
-
+// Cetak pohon angka (Node)
 void Tree::printTree(Node *root, string indent, bool last){
     if(root != NULL){
         cout << indent;
@@ -187,16 +149,35 @@ void Tree::printTree(Node *root, string indent, bool last){
     }
 }
 
+// Cetak pohon aritmatika (NodeAritmatika) -- method milik class Tree
+void Tree::printTreeArit(NodeAritmatika *root, string indent, bool last){
+    if(root != NULL){
+        cout << indent;
+        if(last){
+            cout << "R----";
+            indent += "     ";
+        }
+        else{
+            cout << "L----";
+            indent += "     ";
+        }
+        cout << root->data << endl;
+
+        printTreeArit(root->left, indent, false);
+        printTreeArit(root->right, indent, true);
+    }
+}
+
 bool Tree::isPerfectBinaryArit(NodeAritmatika *root, int tinggi, int level){
     if(root == NULL)
         return true;
- 
+
     if(root->left == NULL && root->right == NULL)
         return tinggi == level + 1;
- 
+
     if(root->left == NULL || root->right == NULL)
         return false;
- 
+
     return isPerfectBinaryArit(root->left, tinggi, level + 1) &&
            isPerfectBinaryArit(root->right, tinggi, level + 1);
 }
@@ -234,16 +215,16 @@ void Tree::preOrder(Node *root){
 
 void Tree::inOrder(Node *root){
     if(root != NULL){
-        preOrder(root->right);
+        inOrder(root->left);
         cout << root->data << " ";
-        preOrder(root->right);
+        inOrder(root->right);
     }
 }
 
 void Tree::postOrder(Node *root){
     if(root != NULL){
-        preOrder(root->right);
-        preOrder(root->right);
+        postOrder(root->left);
+        postOrder(root->right);
         cout << root->data << " ";
     }
 }
