@@ -14,6 +14,16 @@ class Node{
     }
 };
 
+class NodeAritmatika{
+    public:
+    char data = ' ';
+    NodeAritmatika *left = NULL;
+    NodeAritmatika *right = NULL;
+    NodeAritmatika(char data){
+        this->data = data;
+    }
+};
+
 class Tree{
     public:
     Node *root;
@@ -26,16 +36,13 @@ class Tree{
     void levelOrder(Node *root);
     void PrintCurrentLevel(Node *root, int level);  
     void inOrderAritmatika(NodeAritmatika *root);
-};
+    bool isPerfectBinaryArit(NodeAritmatika *root, int tinggi, int level);
 
-class NodeAritmatika{
-    public:
-    char data = ' ';
-    NodeAritmatika *left = NULL;
-    NodeAritmatika *right = NULL;
-    NodeAritmatika(char data){
-        this->data = data;
-    }
+
+    //
+    void printTree(Node *root, string indent ="", bool last=true);
+    int heightNodeAritmatika(NodeAritmatika *root);
+    // void printTreeArit(NodeAritmatika *root, string indent, bool last); 
 };
 
 int main()
@@ -48,7 +55,7 @@ int main()
     // root->right = new Node(25);
     // root->right->right = new Node(27);
 
-    // Tree pohon;
+    Tree pohon;
     // cout << "Transversal pre order\n";
     // pohon.preOrder(root);
     // // 20-15-12-17-25-27
@@ -73,6 +80,18 @@ int main()
     cout << "Transversal preOrder " << endl;
     T.preOrder(root);
 
+    Tree t;
+    t.root = new Node(20);
+    t.root->left = new Node(15);
+    t.root->right = new Node(25);
+    t.root->left->left = new Node(12);
+    t.root->left->right = new Node(17);
+    t.root->right->right = new Node(27);
+    //t.displayTree(t.root);
+    cout << "\n ==============\n";
+    t.printTree(t.root);
+ 
+
     cout << "\nPre Order: " << endl; 
     T.preOrder(root);
     cout << "\nIn Order: " << endl; 
@@ -86,16 +105,109 @@ int main()
     cout << "Transversal Level Order : " << endl;
     T.levelOrder(root);
 
+    // Tidak Seimbang
     NodeAritmatika *akar = new NodeAritmatika('*');
     akar->left = new NodeAritmatika('4');
     akar->right = new NodeAritmatika('/');
     akar->right->left = new NodeAritmatika('6');
     akar->right->right = new NodeAritmatika('2');
     Tree witArit;
+
+    cout << endl;
+    cout << "Tree yang tidak seimbang" << endl;
     cout << "Cetak : "; // (4*(6/2))
     witArit.inOrderAritmatika(akar);
+
+    // Seimbang
+    NodeAritmatika *akar2 = new NodeAritmatika('+');
+    akar2->left = new NodeAritmatika('*');
+    akar2->left->left = new NodeAritmatika('9');
+    akar2->left->right = new NodeAritmatika('6');
+    akar2->right = new NodeAritmatika('-');
+    akar2->right->left = new NodeAritmatika('8');
+    akar2->right->right = new NodeAritmatika('5');
+    cout << endl;
+    cout << "Tree yang seimbang" << endl;
+
+    cout << "Cetak : "; // ((9*6)+(8-5))
+    witArit.inOrderAritmatika(akar2);
+    cout << endl;
     return 0;
 }   
+
+// void printTreeArit(Noderitmatika *root, string indent, bool last){
+//     if(root != NULL){
+//         cout << indent;
+//         if(last){
+//             cout << "R----";
+//             indent += "     ";
+//         }
+//         else{
+//             cout << "L----";
+//             indent += "     ";
+//         }
+//         cout << root->data << endl;
+        
+//         indent += "     ";
+//         printTree(root->left, indent, false);
+//         printTree(root->right, indent, true);
+//     }
+// } 
+
+void Tree::printTree(Node *root, string indent, bool last){
+    if(root != NULL){
+        cout << indent;
+        if(last){
+            cout << "R----";
+            indent += "     ";
+        }
+        else{
+            cout << "L----";
+            indent += "     ";
+        }
+        cout << root->data << endl;
+
+        printTree(root->left, indent, false);
+        printTree(root->right, indent, true);
+    }
+}
+
+bool Tree::isPerfectBinaryArit(NodeAritmatika *root, int tinggi, int level){
+    if(root == NULL)
+        return true;
+ 
+    if(root->left == NULL && root->right == NULL)
+        return tinggi == level + 1;
+ 
+    if(root->left == NULL || root->right == NULL)
+        return false;
+ 
+    return isPerfectBinaryArit(root->left, tinggi, level + 1) &&
+           isPerfectBinaryArit(root->right, tinggi, level + 1);
+}
+
+void Tree::inOrderAritmatika(NodeAritmatika *root){
+    if(root != NULL){
+        if(root->left != NULL && root->right != NULL)
+        cout << "(";
+        inOrderAritmatika(root->left);
+        cout << root->data << " ";
+        inOrderAritmatika(root->right);
+        if(root->left != NULL && root->right != NULL)
+        cout << ")";
+    }
+}
+
+int Tree::heightNode(Node *root) {
+    if(root == NULL){
+        return 0;
+    }else {
+        int leftH = heightNode(root->left);
+        int rightH = heightNode(root->right);
+
+        return 1+max(leftH, rightH);
+    }
+}
 
 void Tree::preOrder(Node *root){
     if(root != NULL){
@@ -139,17 +251,6 @@ void Tree::levelOrder(Node *root) {
     }
 }
 
-int Tree::heightNode(Node *root) {
-    if(root == NULL){
-        return 0;
-    }else {
-        int leftH = heightNode(root->left);
-        int rightH = heightNode(root->right);
-
-        return 1+max(leftH, rightH);
-    }
-}
-
 void Tree::PrintCurrentLevel(Node *root, int level){
     if(root != NULL){
         if(level == 0){
@@ -160,16 +261,3 @@ void Tree::PrintCurrentLevel(Node *root, int level){
         }
     }
 }
-
-void Tree::inOrderAritmatika(NodeAritmatika *root){
-    if(root != NULL){
-        if(root->left != NULL && root->right != NULL)
-        cout << "(";
-        inOrderAritmatika(root->left);
-        cout << root->data << " ";
-        inOrderAritmatika(root->right);
-        if(root->left != NULL && root->right != NULL)
-        cout << ")";
-    }
-}
-
