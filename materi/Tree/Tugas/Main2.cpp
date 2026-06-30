@@ -145,6 +145,8 @@ void Tree::printTree(Node *root, string indent, bool last){
         cout << root->data << endl;
 
         printTree(root->left, indent, false);
+
+        
         printTree(root->right, indent, true);
     }
 }

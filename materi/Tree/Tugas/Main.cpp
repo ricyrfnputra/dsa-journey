@@ -32,38 +32,38 @@ class Tree{
     void preOrder(Node *root);
     void inOrder(Node *root);
     void postOrder(Node *root);
-    int heightNode(Node *root);
+    int heightNodeAritmatika(Node *root);
     void levelOrder(Node *root);
     void PrintCurrentLevel(Node *root, int level);  
     void inOrderAritmatika(NodeAritmatika *root);
     bool isPerfectBinaryArit(NodeAritmatika *root, int tinggi, int level);
 
-
-    //
+    // Print Tree, Height Tree,  PrintTree Arit
     void printTree(Node *root, string indent ="", bool last=true);
     int heightNodeAritmatika(NodeAritmatika *root);
     void printTreeArit(NodeAritmatika *root, string indent, bool last); 
+
 };
 
 int main()
 {
-    // Tree insert manual
-    // Node *root = new Node(20);
-    // root->left = new Node(15);
-    // root->left->right = new Node(17);
-    // root->left->left = new Node(12);
-    // root->right = new Node(25);
-    // root->right->right = new Node(27);
+    Tree insert manual
+    Node *root = new Node(20);
+    root->left = new Node(15);
+    root->left->right = new Node(17);
+    root->left->left = new Node(12);
+    root->right = new Node(25);
+    root->right->right = new Node(27);
 
     Tree pohon;
-    // cout << "Transversal pre order\n";
-    // pohon.preOrder(root);
-    // // 20-15-12-17-25-27
-    // cout << "\nTransversal in order\n";
-    // pohon.inOrder(root);
-    // // 12-15-17-20-25-27
-    // cout << "\nTransversal post order\n";
-    // pohon.postOrder(root);
+    cout << "Transversal pre order\n";
+    pohon.preOrder(root);
+    // 20-15-12-17-25-27
+    cout << "\nTransversal in order\n";
+    pohon.inOrder(root);
+    // 12-15-17-20-25-27
+    cout << "\nTransversal post order\n";
+    pohon.postOrder(root);
    
     Node *root = NULL;
     Tree T;
@@ -77,10 +77,8 @@ int main()
     root = T.insertBinaryRoot(root,9);
     root = T.insertBinaryRoot(root,14);
     root = T.insertBinaryRoot(root,35);
-    cout << "Transversal preOrder " << endl;
+ 
     T.preOrder(root);
-
-
     cout << "\nPre Order: " << endl; 
     T.preOrder(root);
     cout << "\nIn Order: " << endl; 
@@ -149,6 +147,9 @@ int main()
 
     return 0;
 }   
+
+
+
 
 void printTreeArit(Noderitmatika *root, string indent, bool last){
     if(root != NULL){
@@ -276,3 +277,4 @@ void Tree::PrintCurrentLevel(Node *root, int level){
         }
     }
 }
+
