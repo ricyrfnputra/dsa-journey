@@ -8,9 +8,6 @@ class NodeKendaraan {
     NodeKendaraan *left = nullptr;
     NodeKendaraan *right = nullptr;
 
-    NodeKendaraan() {
-    }
-
     NodeKendaraan (string data) {
         this->data = data;
     }
@@ -22,8 +19,8 @@ class Tree {
 
     void printTree(NodeKendaraan *root, string indent="", bool last = true);
     int hitungNode(NodeKendaraan *root);
-    bool cari(NodeKendaraan *root, string key);
-    string cari2(NodeKendaraan *root,  string key);
+    bool cari(NodeKendaraan *root, string target);
+    string cari2(NodeKendaraan *root,  string target);
 };
 
 int main() {
@@ -84,6 +81,7 @@ void Tree::printTree(NodeKendaraan *root, string indent, bool last)
 bool Tree::cari(NodeKendaraan *root, string key) 
 {
     if (root == nullptr) return false;
+
 
     if (root->data == key) return true;
 
