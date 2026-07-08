@@ -20,11 +20,10 @@ class Tree{
     void printTree(NodeMakanan *root, string indent ="", bool last = true);
     int hitungNode(NodeMakanan *root);
     bool cariNode(NodeMakanan *root, string key);
-    bool cariNode2(NodeMakanan *root, string key);
+    
 };
 
-int main()
-{
+int main(){
 
     Tree M;
 
@@ -46,29 +45,20 @@ int main()
 
     M.printTree(M.root);
 
-    cout << "Pohon makanan ada " << M.hitungNode(M.root) << " Node."<< endl;
-    cout << "Apakah ada node Nasi " << (M.cariNode(M.root, "Nasi") ? "Ada" : "Tidak ada") << endl;
-    cout << "Apakah ada node Keripik? " << (M.cariNode2(M.root, "Keripik") ? "Ada" : "Tidak ada") << endl;
+    cout << "Jumlah node ada " << M.hitungNode(M.root) << " Node" << endl;
+    cout << "Apakah ada node Pokok" << (M.cariNode(M.root, "Pokok") ? "ada" : "tidak ada")<< endl;
 }
 
 bool Tree::cariNode(NodeMakanan *root, string key){
     if(root == NULL) return false;
     if(root->data == key) return true;
-    return cariNode(root->left, key) || cariNode(root->right, key);
+
+    return cariNode(root->left,key) || cariNode(root->right,key);
+
 }
 
-
-bool Tree::cariNode2(NodeMakanan *root, string key){
-    if(root == NULL) return false;
-    if(root->data == key) return true;
-    return cariNode(root->left, key) || cariNode(root->right, key);
-}
-
-
-int Tree::hitungNode(NodeMakanan *root){
-    if(root == NULL)
-        return 0;
-
+int  Tree::hitungNode(NodeMakanan *root){
+    if(root == NULL ) return 0;
     return 1+ hitungNode(root->left) + hitungNode(root->right);
 }
 
@@ -89,5 +79,26 @@ void Tree::printTree(NodeMakanan *root, string indent, bool last){
     printTree(root->left, indent, false);
     printTree(root->right, indent, true);
 }
+
+
+
+// LATIHAN (JADI TIDAK MASUK KE MAIN COE)
+/*cout << "Jumlah node ada " << M.hitungNode(M.root) << " Node" << endl;
+
+
+int Tree::hitunngNode(NodeMakanan *root){
+
+    if(root == NULL) return 0;
+    return 1+ hitungNode(root->left) + hitungNode(root->right);
+}
+
+cout << "Apakah ada node Pisang" << (M.cariNode(M.root, "Pisang")? "ada" : "tidak ada");
+
+bool Tree::cariNode(NodeMakanan *root, string key){
+    if(root == NULL) return false;
+    if(root->data == key) retrun true;
+    return cariNode(root->left,key) || cariNode(root->right,key);
+}
+*/
 
 
