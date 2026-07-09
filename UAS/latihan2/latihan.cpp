@@ -17,14 +17,16 @@ class Tree{
     public:
     NodeMakanan *root;
 
-    void printTree(NodeMakanan *root, string indent ="", bool last = true);
+    void printTree(NodeMakanan *root, string indent ="",bool last = true);
     int hitungNode(NodeMakanan *root);
-    bool cariNode(NodeMakanan *root, string key);
-    
+    bool cariNode(NodeMakanan *root, string target);
+    int tinggiTree(NodeMakanan *root);
+    int hitungDaun(NodeMakanan *root);
 };
 
-int main(){
-
+int main()
+{
+    
     Tree M;
 
     M.root = new NodeMakanan("Makanan");
@@ -45,22 +47,37 @@ int main(){
 
     M.printTree(M.root);
 
+
+    // cout cout tan
     cout << "Jumlah node ada " << M.hitungNode(M.root) << " Node" << endl;
-    cout << "Apakah ada node Pokok" << (M.cariNode(M.root, "Pokok") ? "ada" : "tidak ada")<< endl;
+    cout << "Apakah ada node kentang " << (M.cariNode(M.root, "kentang")? "Ada" : "Tidak ada") << endl; 
+    cout << "Tinggi tree adalah " << M.tinggiTree(M.root) << endl;
+    cout << "Jumlah daun adalah " << M.hitungDaun(M.root) << endl;
+
 }
 
-bool Tree::cariNode(NodeMakanan *root, string key){
+int Tree::hitungDaun(NodeMakanan *root){
+    if(root == NULL) return 0;
+
+    //return 1
+    if(root->left == NULL && root->right == NULL) return 1;
+    return hitungDaun(root->left) + hitungDaun(root->right);
+}
+
+int Tree::tinggiTree(NodeMakanan *root){
+    if(root == NULL) return 0;
+    int kiri = tinggiTree(root->left);
+    int kanan = tinggiTree(root->right);
+
+    return 1+max(kiri,kanan);
+}
+
+bool Tree::cariNode(NodeMakanan *root, string target){
     if(root == NULL) return false;
-    if(root->data == key) return true;
-
-    return cariNode(root->left,key) || cariNode(root->right,key);
-
+    if(root->data == target) return true;
+    return cariNode(root->left, target) || cariNode(root->right, target);
 }
 
-int  Tree::hitungNode(NodeMakanan *root){
-    if(root == NULL ) return 0;
-    return 1+ hitungNode(root->left) + hitungNode(root->right);
-}
 
 void Tree::printTree(NodeMakanan *root, string indent, bool last){
     if(root == NULL) return;
@@ -80,50 +97,11 @@ void Tree::printTree(NodeMakanan *root, string indent, bool last){
     printTree(root->right, indent, true);
 }
 
-
-
-// LATIHAN (JADI TIDAK MASUK KE MAIN COE)
-cout << "Jumlah node ada " << M.hitungNode(M.root) << " Node" << endl;
-
-
-int Tree::hitunngNode(NodeMakanan *root){
-
-    if(root == NULL) return 0;
+int Tree::hitungNode(NodeMakanan *root){
+    if(root == NULL) 
+        return 0;
     return 1+ hitungNode(root->left) + hitungNode(root->right);
 }
-
-cout << "Apakah ada node Pisang" << (M.cariNode(M.root, "Pisang")? "ada" : "tidak ada");
-
-bool Tree::cariNode(NodeMakanan *root, string key){
-    if(root == NULL) return false;
-    if(root->data == key) retrun true;
-    return cariNode(root->left,key) || cariNode(root->right,key);
-}
-
-cout << "Tinggi tree adalah " << M.tinggiTree << endl;
-
-int Tree::tinggiTree(ModeMakanan *root){
-    if(root == NULL) return 0;
-    int kiri = tinggiTree(root->left);
-    int kanan = tinggiTree(root->right);
-
-    return 1+max(kiri,kanan)
-}
-
-
-cout << "Jumlah daun ada" << M.jumlahDaun << endl;
-
-int Tree::jumlahDaun(NodeMakanan *root){
-    if(root == NULL) return 0;
-    if(root->left == NULL && root->right == NULL) return 1;
- 
-    return  jumlahDaun(root->left) + jumlahDaun(root->right);
-}
-
-
-
-
-
 
 
 
